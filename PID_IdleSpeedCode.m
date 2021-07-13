@@ -68,14 +68,16 @@ Gs=tf(NUMGs,DUMGs)
 Gsc=feedback(Gs,1) %feedback = 1
 
 %% Simulation
-t = 0:0.0001:1;
+t = 0:0.0001:2;
 U = Ne * ones(size(t));
 [Y1,t,X1]=lsim(Gsc,U,t);
 
 %% Figure
 
 figure
-plot(t,Y1,'R');
+plot(t,Y1,'r');
+hold on;
+plot(t,U,'-. b');
 xlabel('Time (seconds)')
 ylabel('Engine Idle Speed (RPM)')
 xlim ([0 max(t)]) ;
