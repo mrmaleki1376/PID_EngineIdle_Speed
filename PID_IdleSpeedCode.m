@@ -1,6 +1,6 @@
 %% By Mohammadreza Maleki
 %% a Controller for Engine Idle Speed
-%%
+%% Sec.1 Nominal Engine Speed
 close All
 clear 
 clc
@@ -8,7 +8,7 @@ digits(6);
 syms dWa Da Dp Dn Df Wa Dd DTl dDp dDn s
 Ne=1600; %Nominal Engine Speed
 
-%% Typical parameters of an six-cylinder-engine idle speed
+%% Sec.2 Typical parameters of an six-cylinder-engine idle speed
 
 Ka=20;         
 Kpm=0.776;
@@ -21,7 +21,7 @@ Hd=10;
 Hf=36.6;
 T=0.033;
 
-%% State Space & Transfer Function Models
+%% Sec.3 State Space & Transfer Function Models
 
 dWa=Ka*Da; % The airflow rate
 dDp=(-Dp/tp)+(Kpm*Ka*Da)-(Kpm*Kn*Dn); % The intake manifold pressure
@@ -50,7 +50,7 @@ Gp=minreal(tf(NUM,DUM)) %Minreal Transfer Function
 NUM=cell2mat(NUM);
 DUM=cell2mat(DUM);
 
-%% Designing a PID COntroller
+%% Sec.4 Designing a PID COntroller
 Kp=0.0102080595074629; % Proportional gain
 Ki=0.10944345575242; % Integral gain
 Kd=0.000138654213001405; % Derivative gain
@@ -60,19 +60,19 @@ G_c=tf(c);
 NUM_c=cell2mat(NUM_c);
 DUM_c=cell2mat(DUM_c);
 
-%% PID in a Loop with Tf and feedback=1
+%% Sec.5 PID in a Loop with Tf and feedback=1
 NUMGs=(conv(NUM_c,NUM));
 DUMGs=(conv(DUM_c,DUM));
 %Gs=minreal(tf(NUMGs,DUMGs))
 Gs=tf(NUMGs,DUMGs)
 Gsc=feedback(Gs,1) %feedback = 1
 
-%% Simulation
+%% Sec.6 Simulation
 t = 0:0.0001:2;
 U = Ne * ones(size(t));
 [Y1,t,X1]=lsim(Gsc,U,t);
 
-%% Figure
+%% Sec.7 Figure
 
 figure
 plot(t,Y1,'r');
