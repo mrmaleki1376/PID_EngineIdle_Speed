@@ -6,7 +6,7 @@ clear
 clc
 digits(6);
 syms dWa Da Dp Dn Df Wa Dd DTl dDp dDn s
-Ne=1600; %Nominal Engine Speed
+Ne=600; %Nominal Engine Speed
 
 %% Sec.2 Typical parameters of an six-cylinder-engine idle speed
 
